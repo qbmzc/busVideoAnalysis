@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>图片上传</h1>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="img">
+    <button type="submit">上传</button>
+    <img src= {{ img }}>
+</form>
+
+<h2>预测：</h2>
+{% load static %}
+    <img src={{ imgs }} alt="我是一个图片" title="图片" width=256 height=256/><br>
+    <label>预测结果：</label>
+
+    <img src={{ label }} alt="我是一个图片" title="图片" width=256 height=256/>
+
+</body>
+</html>
