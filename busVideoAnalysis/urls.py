@@ -15,14 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from . import views
+from . import views, settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('py2html/', views.py2html),
     path('pexample/', views.postexample),
     path('segment/', views.uploadImg),
+    path('',views.uploadImg),
 ]
 
-
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
