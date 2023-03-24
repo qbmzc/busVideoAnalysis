@@ -76,7 +76,7 @@ def getMask(fimage):
         # 将两张图片合并，使用alpha通道控制透明度（可根据需要调整）
         result = Image.blend(irgb.convert('RGBA'), imsk.convert('RGBA'), alpha=0.318)
 
-        fname = f"media/img/seg_{str(uuid1())[:8]}.png"
+        fname = f"temp/img/seg_{str(uuid1())[:8]}.png"
     
         result.save(fname)
         return fname

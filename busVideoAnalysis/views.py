@@ -44,7 +44,7 @@ def carclassify(request):
     # os.path.split(): 返回文件的路径和文件名
     dirname, filename = os.path.split(path)
     pre_img = Image(name=filename,time=datetime.strftime(datetime.now(), '%Y-%m-%d %H:%M:%S'))
-    with open(path,"r",encoding='utf-8') as f:
+    with open(path,"rb") as f:
         myfile = File(f)
         pre_img.img.save(name=filename,content=myfile,save=True)
     pre_img.save()
