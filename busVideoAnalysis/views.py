@@ -5,6 +5,7 @@
 @Project:views
 """
 import logging
+from django.core.files import File
 
 logging.basicConfig(level=logging.WARNING,
                     format='%(asctime)s-%(filename)s[line:%(lineno)d]-%(levelname)s:%(message)s',
@@ -39,7 +40,17 @@ def postexample(request):
 def carclassify(request):
     img = list(Image.objects.all())[-1]
     path = predict.getMask(f".{img.img.url}")
-    res = {"imgs": img, "label": path}
+    #保存预测图片到数据库中
+    # os.path.split(): 返回文件的路径和文件名
+    dirname, filename = os.path.split(path)
+    pre_img = Image(name=filename,time=datetime.strftime(datetime.now(), '%Y-%m-%d %H:%M:%S'))
+    with open(path,"rb") as f:
+        myfile = File(f)
+        pre_img.img.save(name=filename,content=myfile,save=True)
+    pre_img.save()
+    logging.info(pre_img.img.url)
+   
+    res = {"imgs": img, "label": pre_img}
 
     return render(request, 'imgupload.html', res)
 
